@@ -1,0 +1,23 @@
+{
+  "name": "vanilla-nav",
+  "version": "0.1.0",
+  "private": true,
+  "description": "a simple vanilla navigation menu",
+  "scripts": {
+    "start": "http-server ./",
+    "test": "echo \"Hehe...\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shwilliam/vanilla-nav.git"
+  },
+  "author": "William L <w-lindvall@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shwilliam/vanilla-nav/issues"
+  },
+  "homepage": "https://github.com/shwilliam/vanilla-nav#readme",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}
