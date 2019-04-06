@@ -1,37 +1,36 @@
 {
-  window.onload = () => {
+  window.addEventListener('load', () => {
     const menuToggleEl = document.getElementById('menu-toggle')
     const menuEl = document.getElementById('menu')
     const menuListEl = document.getElementById('menu-list')
     const {
       length: l,
-      0: menuItemFirstEl,
       [l - 1]: menuItemLastEl
     } = menuListEl.children
 
-    menuToggleEl.onclick = ({ target }) => {
+    // trap tab navigation within menu
+    menuItemLastEl.addEventListener('keydown', (e) => {
+      if (e.keyCode === 9 && !e.shiftKey) {
+        menuToggleEl.focus()
+        e.preventDefault()
+      }
+    })
+
+    menuToggleEl.addEventListener('keydown', (e) => {
+      if (e.keyCode === 9 && e.shiftKey) {
+        // assumes focusable el is first child of menu list item
+        menuItemLastEl.children[0].focus()
+        e.preventDefault()
+      }
+    })
+
+    menuToggleEl.addEventListener('click', ({ target }) => {
       const isOpening = target.checked
 
       if (isOpening) {
         // open menu
         menuEl.setAttribute('aria-expanded', true)
         menuEl.setAttribute('aria-hidden', false)
-
-        // trap tab navigation within menu
-        menuItemLastEl.onkeydown = e => {
-          if (e.keyCode === 9 && !e.shiftKey) {
-            menuToggleEl.focus()
-            e.preventDefault()
-          }
-        }
-
-        menuToggleEl.onkeydown = e => {
-          if (e.keyCode === 9 && e.shiftKey) {
-            // assumes focusable el is first child of menu list item
-            menuItemLastEl.children[0].focus()
-            e.preventDefault()
-          }
-        }
 
         // lock scroll
         const { scrollX, scrollY } = window
@@ -54,9 +53,6 @@
         // enable scroll
         window.onscroll = null
 
-        // clear menu toggle tab nav listener
-        menuToggleEl.onkeydown = null
-
         // disable tab navigation
         for (
           let i = 0, menuListLength = menuListEl.children.length;
@@ -67,6 +63,6 @@
           menuListItemEl.children[0].setAttribute('tabindex', -1)
         }
       }
-    }
-  }
+    })
+  })
 }
